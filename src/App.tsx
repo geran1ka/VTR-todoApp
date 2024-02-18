@@ -1,19 +1,28 @@
 import s from "./App.module.scss";
+import { useAppSelector } from "./hooks";
+import { Auth } from "./modules/Auth/Auth";
 import { Container } from "./modules/Container/Container";
-import { Search } from "./modules/Search/Search";
-import { Result } from "./modules/Result/Result";
+import { Form } from "./modules/Form/Form";
+import { TaskList } from "./modules/TaskList/TaskList";
 
-function App() {
+export const App = () => {
+  const { isLogged } = useAppSelector((state) => state.auth);
+  console.log("isLogged: ", isLogged);
+
   return (
     <>
       <div className={s.app}>
         <Container>
-          <Search />
-          <Result />
+          {isLogged ? (
+            <>
+              <Form />
+              <TaskList />
+            </>
+          ) : (
+            <Auth />
+          )}
         </Container>
       </div>
     </>
   );
-}
-
-export default App;
+};
