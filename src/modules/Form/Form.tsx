@@ -2,8 +2,7 @@ import { useState } from "react";
 import s from "./Form.module.scss";
 import { useAppDispatch } from "../../hooks";
 import classNames from "classnames";
-import { addTask } from "../../store/task/tasksSlice";
-import { logOut } from "../../store/auth/authSlice";
+import { addTask, logOut } from "../../store/task/tasksSlice";
 
 export const Form = () => {
   const dispatch = useAppDispatch();
@@ -12,14 +11,13 @@ export const Form = () => {
 
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    dispatch(
-      addTask({
-        id: Math.random().toString(16).substring(2, 9),
-        task,
-        completed: false,
-        important: importanceTasks,
-      }),
-    );
+    const newTask = {
+      id: Math.random().toString(16).substring(2, 9),
+      task,
+      completed: false,
+      important: importanceTasks,
+    };
+    dispatch(addTask(newTask));
     setTask("");
     setImportanceTasks("table-light");
   };

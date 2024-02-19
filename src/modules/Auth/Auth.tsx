@@ -3,13 +3,13 @@ import s from "./Auth.module.scss";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks";
-import { logIn } from "../../store/auth/authSlice";
+import { logIn } from "../../store/task/tasksSlice";
 
 type Props = {};
 
 export const Auth = (props: Props) => {
   const dispatch = useDispatch();
-  const { isLogged } = useAppSelector((state) => state.auth);
+  const { isLogged } = useAppSelector((state) => state.tasks);
 
   const [value, setValue] = useState("");
 

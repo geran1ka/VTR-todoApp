@@ -1,8 +1,12 @@
 import classNames from "classnames";
-import { useAppDispatch } from "../hooks";
 import { useRef, useState } from "react";
-import { ModalRemoveTask } from "../modules/ModalRemoveTask/ModalRemoveTask";
-import { completeTask, editTask, removeTask } from "../store/task/tasksSlice";
+import { useAppDispatch } from "../../../hooks";
+import {
+  completeTask,
+  editTask,
+  removeTask,
+} from "../../../store/task/tasksSlice";
+import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 
 export const TaskItem = (props) => {
   const { id, task, completed, important, index } = props;
@@ -32,20 +36,19 @@ export const TaskItem = (props) => {
 
   const handleTaskEdit = () => {
     setToEdit(true);
-    console.log("start");
-    if (titleRef.current !== null) {
-      titleRef.current.focus();
+    // if (titleRef.current !== null) {
+    //   titleRef.current.focus();
 
-      titleRef.current.addEventListener("blur", () => {
-        setToEdit(false);
-        dispatch(
-          editTask({
-            id,
-            task: titleRef.current?.textContent,
-          }),
-        );
-      });
-    }
+    //   titleRef.current.addEventListener("blur", () => {
+    //     setToEdit(false);
+    //     dispatch(
+    //       editTask({
+    //         id,
+    //         task: titleRef.current?.textContent,
+    //       }),
+    //     );
+    //   });
+    // }
   };
 
   const handleTaskEditStop = () => {
@@ -86,11 +89,7 @@ export const TaskItem = (props) => {
           <button
             className={classNames("btn btn-primary me-1")}
             onClick={() => {
-              if (toEdit) {
-                handleTaskEditStop();
-              } else {
-                handleTaskEdit();
-              }
+              toEdit ? handleTaskEditStop() : handleTaskEdit();
             }}>
             {toEdit ? "Закончить" : "Редактировать"}
           </button>

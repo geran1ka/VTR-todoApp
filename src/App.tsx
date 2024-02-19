@@ -6,8 +6,7 @@ import { Form } from "./modules/Form/Form";
 import { TaskList } from "./modules/TaskList/TaskList";
 
 export const App = () => {
-  const { isLogged } = useAppSelector((state) => state.auth);
-  console.log("isLogged: ", isLogged);
+  const { isLogged } = useAppSelector((state) => state.tasks);
 
   return (
     <>

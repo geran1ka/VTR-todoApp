@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import taskReducer from "./task/tasksSlice.ts";
-import authReducer from "./auth/authSlice.ts";
 
 const RootReducer = combineReducers({
   tasks: taskReducer,
-  auth: authReducer,
 });
 
 export const store = configureStore({
