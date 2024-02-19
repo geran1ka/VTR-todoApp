@@ -1,16 +1,17 @@
 import classNames from "classnames";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { TaskItem } from "./TaskItem/TaskItem";
 import { getLocalStorage } from "../../API/localStorage";
 import { useEffect } from "react";
 import { setTask } from "../../store/task/tasksSlice";
 
 export const TaskList = () => {
+  const dispatch = useAppDispatch();
   const login = useAppSelector((state) => state.tasks.login);
   const tasks = getLocalStorage(login);
   useEffect(() => {
-    setTask(tasks);
-  }, []);
+    dispatch(setTask(tasks));
+  }, [login]);
 
   return tasks.length >= 1 ? (
     <div className={classNames("table-wrapper")}>
