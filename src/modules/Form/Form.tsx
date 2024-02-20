@@ -6,54 +6,48 @@ import { ITask, addTask, editTask, logOut } from "../../store/task/tasksSlice";
 
 interface FormProps {}
 
+const DERAULT_TASK = {
+  task: "",
+  important: "table-light",
+};
+
 export const Form = (props: ITask | undefined) => {
   const dispatch = useAppDispatch();
 
   const { mode, taskEdit, setIdTaskEdit } = props;
   const isEdit = mode === "edit";
 
-  const [task, setTask] = useState(isEdit ? taskEdit.task : "");
-  const [importanceTasks, setImportanceTasks] = useState(
-    isEdit ? taskEdit.important : "table-light",
-  );
+  const [task, setTask] = useState(isEdit ? taskEdit : DERAULT_TASK);
+
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setTask({ ...task, [name]: value });
+  };
+
+  const handlerReset = () => {
+    setTask(DERAULT_TASK);
+  };
 
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     if (isEdit) return;
     const newTask = {
       id: Math.random().toString(16).substring(2, 9),
-      task,
+      task: task.task,
       completed: false,
-      important: importanceTasks,
+      important: task.important,
     };
     dispatch(addTask(newTask));
-    setTask("");
-    setImportanceTasks("table-light");
-  };
-
-  const handlerReset = () => {
-    setTask("");
-    setImportanceTasks("table-light");
+    handlerReset();
   };
 
   const handlerChangeTask = () => {
-    console.log("click");
     if (taskEdit) {
-      console.log("click2");
-      dispatch(editTask({ ...taskEdit, task, importanceTasks }));
+      console.log("taskEdit: ", taskEdit);
+      dispatch(editTask({ ...taskEdit, ...task }));
       setIdTaskEdit(null);
-    }
-  };
-
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTask(e.target.value);
-  };
-
-  const onChangeSelect = (e: React.ChangeEvent<EventTarget>) => {
-    console.log(1);
-    if (e.target instanceof HTMLSelectElement) {
-      console.log(e.target.value);
-      setImportanceTasks(e.target.value);
     }
   };
 
@@ -65,16 +59,18 @@ export const Form = (props: ITask | undefined) => {
         <input
           type="text"
           className={classNames("form-control")}
-          onChange={onChangeInput}
-          value={task}
+          name="task"
+          onChange={onChange}
+          value={task.task}
           placeholder="ввести задачу"
         />
       </label>
 
       <select
         className="w-auto me-3 form-select"
-        value={importanceTasks}
-        onChange={onChangeSelect}>
+        value={task.important}
+        name="important"
+        onChange={onChange}>
         <option className="table-light" value="table-light">
           обычная
         </option>
