@@ -33,7 +33,8 @@ export const TaskList = () => {
             if (task.id === idTaskEdit) {
               return (
                 <tr key={idTaskEdit}>
-                  <td colSpan={4}>
+                  <td>{index + 1}</td>
+                  <td colSpan={3}>
                     <Form
                       mode="edit"
                       taskEdit={task}

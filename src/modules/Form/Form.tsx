@@ -45,7 +45,6 @@ export const Form = (props: ITask | undefined) => {
 
   const handlerChangeTask = () => {
     if (taskEdit) {
-      console.log("taskEdit: ", taskEdit);
       dispatch(editTask({ ...taskEdit, ...task }));
       setIdTaskEdit(null);
     }

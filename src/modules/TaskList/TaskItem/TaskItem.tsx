@@ -1,11 +1,7 @@
 import classNames from "classnames";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../../../hooks";
-import {
-  completeTask,
-  editTask,
-  removeTask,
-} from "../../../store/task/tasksSlice";
+import { completeTask, removeTask } from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 
 export const TaskItem = (props) => {
@@ -31,38 +27,8 @@ export const TaskItem = (props) => {
     setShowModalRemove(false);
   };
 
-  const [toEdit, setToEdit] = useState(false);
-  const titleRef = useRef<HTMLTableCellElement>(null);
-
   const handleTaskEdit = () => {
     setIdTaskEdit(id);
-    // setToEdit(true);
-    // if (titleRef.current !== null) {
-    //   titleRef.current.focus();
-
-    //   titleRef.current.addEventListener("blur", () => {
-    //     setToEdit(false);
-    //     dispatch(
-    //       editTask({
-    //         id,
-    //         task: titleRef.current?.textContent,
-    //       }),
-    //     );
-    //   });
-    // }
-  };
-
-  const handleTaskEditStop = () => {
-    setIdTaskEdit(null);
-    // if (titleRef.current !== null) {
-    //   setToEdit(false);
-    //   dispatch(
-    //     editTask({
-    //       id,
-    //       task: titleRef.current?.textContent,
-    //     }),
-    //   );
-    // }
   };
 
   return (
@@ -73,10 +39,7 @@ export const TaskItem = (props) => {
           className={classNames(
             "task",
             completed && "text-decoration-line-through",
-          )}
-          ref={titleRef}
-          contentEditable={toEdit}
-          suppressContentEditableWarning={true}>
+          )}>
           {task}
         </td>
         <td className={classNames("m-auto", "align-middle")}>
@@ -90,10 +53,8 @@ export const TaskItem = (props) => {
           </button>
           <button
             className={classNames("btn btn-primary me-1")}
-            onClick={() => {
-              toEdit ? handleTaskEditStop() : handleTaskEdit();
-            }}>
-            {toEdit ? "Закончить" : "Редактировать"}
+            onClick={handleTaskEdit}>
+            Редактировать
           </button>
           <button
             className={classNames("btn btn-success")}
