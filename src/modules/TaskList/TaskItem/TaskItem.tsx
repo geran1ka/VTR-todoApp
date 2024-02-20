@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useAppDispatch } from "../../../hooks";
 import { completeTask, removeTask } from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
+import { editStart } from "../../../store/edit/editSlice";
 
 export const TaskItem = (props) => {
-  const { id, task, completed, important, index, setIdTaskEdit } = props;
+  const { id, task, completed, important, index } = props;
 
   const dispatch = useAppDispatch();
 
@@ -28,16 +29,24 @@ export const TaskItem = (props) => {
   };
 
   const handleTaskEdit = () => {
-    setIdTaskEdit(id);
+    dispatch(
+      editStart({
+        id,
+        task,
+        completed,
+        important,
+      }),
+    );
   };
 
   return (
     <>
       <tr className={classNames(important, "h-100")} id={id}>
-        <td>{index + 1}</td>
+        <td className="align-middle">{index + 1}</td>
         <td
           className={classNames(
             "task",
+            "align-middle",
             completed && "text-decoration-line-through",
           )}>
           {task}

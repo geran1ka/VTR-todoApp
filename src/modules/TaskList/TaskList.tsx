@@ -2,16 +2,16 @@ import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { TaskItem } from "./TaskItem/TaskItem";
 import { getLocalStorage } from "../../API/localStorage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setTask } from "../../store/task/tasksSlice";
 import { Form } from "../Form/Form";
 
 export const TaskList = () => {
   const dispatch = useAppDispatch();
+
   const login = useAppSelector((state) => state.tasks.login);
   const tasks = getLocalStorage(login);
-
-  const [idTaskEdit, setIdTaskEdit] = useState("");
+  const { id } = useAppSelector((state) => state.editTask);
 
   useEffect(() => {
     dispatch(setTask(tasks));
@@ -30,28 +30,17 @@ export const TaskList = () => {
         </thead>
         <tbody>
           {tasks.map((task, index) => {
-            if (task.id === idTaskEdit) {
+            if (task.id === id) {
               return (
-                <tr key={idTaskEdit}>
-                  <td>{index + 1}</td>
-                  <td colSpan={3}>
-                    <Form
-                      mode="edit"
-                      taskEdit={task}
-                      setIdTaskEdit={setIdTaskEdit}
-                    />
+                <tr key={id}>
+                  <td className="align-middle">{index + 1}</td>
+                  <td className="align-middle" colSpan={3}>
+                    <Form mode="edit" />
                   </td>
                 </tr>
               );
             }
-            return (
-              <TaskItem
-                key={task.id}
-                {...task}
-                index={index}
-                setIdTaskEdit={setIdTaskEdit}
-              />
-            );
+            return <TaskItem key={task.id} {...task} index={index} />;
           })}
         </tbody>
       </table>

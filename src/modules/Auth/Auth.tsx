@@ -1,21 +1,17 @@
 import classNames from "classnames";
 import s from "./Auth.module.scss";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { logIn } from "../../store/task/tasksSlice";
 
-type Props = {};
-
-export const Auth = (props: Props) => {
-  const dispatch = useDispatch();
+export const Auth = () => {
+  const dispatch = useAppDispatch();
   const { isLogged } = useAppSelector((state) => state.tasks);
 
   const [value, setValue] = useState("");
 
   const handlerSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    console.log(value);
     dispatch(logIn(value));
   };
 

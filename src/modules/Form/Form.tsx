@@ -1,21 +1,25 @@
 import { useState } from "react";
 import s from "./Form.module.scss";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import classNames from "classnames";
 import { ITask, addTask, editTask, logOut } from "../../store/task/tasksSlice";
+import { editStop } from "../../store/edit/editSlice";
 
-interface FormProps {}
+interface Form {
+  mode: string;
+}
 
-const DERAULT_TASK = {
+const DERAULT_TASK: Omit<ITask, "id" | "completed"> = {
   task: "",
   important: "table-light",
 };
 
-export const Form = (props: ITask | undefined) => {
+export const Form = (props: Form) => {
   const dispatch = useAppDispatch();
 
-  const { mode, taskEdit, setIdTaskEdit } = props;
+  const { mode } = props;
   const isEdit = mode === "edit";
+  const taskEdit = useAppSelector((state) => state.editTask.taskEdit);
 
   const [task, setTask] = useState(isEdit ? taskEdit : DERAULT_TASK);
 
@@ -33,32 +37,39 @@ export const Form = (props: ITask | undefined) => {
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     if (isEdit) return;
-    const newTask = {
-      id: Math.random().toString(16).substring(2, 9),
-      task: task.task,
-      completed: false,
-      important: task.important,
-    };
-    dispatch(addTask(newTask));
+    dispatch(
+      addTask({
+        id: Math.random().toString(16).substring(2, 9),
+        task: task.task,
+        completed: false,
+        important: task.important,
+      }),
+    );
     handlerReset();
   };
 
   const handlerChangeTask = () => {
     if (taskEdit) {
       dispatch(editTask({ ...taskEdit, ...task }));
-      setIdTaskEdit(null);
+      dispatch(editStop());
     }
   };
 
   return (
     <form
-      className={classNames(s.form, "d-flex", "align-items-center", "mb-3")}
+      className={classNames(
+        s.form,
+        "d-flex",
+        "align-items-center",
+        !isEdit && "mb-3",
+      )}
       onSubmit={handlerSubmit}>
       <label className={classNames("w-100 form-group me-3 mb-0")}>
         <input
           type="text"
           className={classNames("form-control")}
           name="task"
+          id="task"
           onChange={onChange}
           value={task.task}
           placeholder="ввести задачу"
@@ -69,6 +80,7 @@ export const Form = (props: ITask | undefined) => {
         className="w-auto me-3 form-select"
         value={task.important}
         name="important"
+        id="important"
         onChange={onChange}>
         <option className="table-light" value="table-light">
           обычная
@@ -85,7 +97,7 @@ export const Form = (props: ITask | undefined) => {
         <button
           className={classNames("btn btn-primary me-3")}
           type="submit"
-          disabled={task ? false : true}>
+          disabled={task.task ? false : true}>
           Сохранить
         </button>
       )}
@@ -93,7 +105,7 @@ export const Form = (props: ITask | undefined) => {
         <button
           className={classNames("btn btn-primary me-3")}
           type="button"
-          disabled={task ? false : true}
+          disabled={task.task ? false : true}
           onClick={handlerChangeTask}>
           Сохранить
         </button>
@@ -103,7 +115,7 @@ export const Form = (props: ITask | undefined) => {
         className={classNames("btn btn-warning me-3")}
         type="button"
         onClick={handlerReset}
-        disabled={task ? false : true}>
+        disabled={task.task ? false : true}>
         Очистить
       </button>
 
