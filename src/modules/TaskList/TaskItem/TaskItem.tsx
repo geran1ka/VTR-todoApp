@@ -9,7 +9,7 @@ import {
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 
 export const TaskItem = (props) => {
-  const { id, task, completed, important, index } = props;
+  const { id, task, completed, important, index, setIdTaskEdit } = props;
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +35,8 @@ export const TaskItem = (props) => {
   const titleRef = useRef<HTMLTableCellElement>(null);
 
   const handleTaskEdit = () => {
-    setToEdit(true);
+    setIdTaskEdit(id);
+    // setToEdit(true);
     // if (titleRef.current !== null) {
     //   titleRef.current.focus();
 
@@ -52,15 +53,16 @@ export const TaskItem = (props) => {
   };
 
   const handleTaskEditStop = () => {
-    if (titleRef.current !== null) {
-      setToEdit(false);
-      dispatch(
-        editTask({
-          id,
-          task: titleRef.current?.textContent,
-        }),
-      );
-    }
+    setIdTaskEdit(null);
+    // if (titleRef.current !== null) {
+    //   setToEdit(false);
+    //   dispatch(
+    //     editTask({
+    //       id,
+    //       task: titleRef.current?.textContent,
+    //     }),
+    //   );
+    // }
   };
 
   return (

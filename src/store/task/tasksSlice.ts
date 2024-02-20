@@ -53,9 +53,10 @@ const tasksSlice = createSlice({
       setLocalStorage(state.login, state.tasks);
     },
     editTask: (state, action) => {
+      console.log("action: ", action);
       state.tasks = state.tasks.map((task) => {
         if (task?.id === action.payload.id) {
-          task.task = action.payload.task;
+          return action.payload;
         }
         return task;
       });

@@ -2,13 +2,17 @@ import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { TaskItem } from "./TaskItem/TaskItem";
 import { getLocalStorage } from "../../API/localStorage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setTask } from "../../store/task/tasksSlice";
+import { Form } from "../Form/Form";
 
 export const TaskList = () => {
   const dispatch = useAppDispatch();
   const login = useAppSelector((state) => state.tasks.login);
   const tasks = getLocalStorage(login);
+
+  const [idTaskEdit, setIdTaskEdit] = useState("");
+
   useEffect(() => {
     dispatch(setTask(tasks));
   }, [login]);
@@ -26,12 +30,34 @@ export const TaskList = () => {
         </thead>
         <tbody>
           {tasks.map((task, index) => {
-            return <TaskItem key={task.id} {...task} index={index} />;
+            if (task.id === idTaskEdit) {
+              return (
+                <tr key={idTaskEdit}>
+                  <td colSpan={4}>
+                    <Form
+                      mode="edit"
+                      taskEdit={task}
+                      setIdTaskEdit={setIdTaskEdit}
+                    />
+                  </td>
+                </tr>
+              );
+            }
+            return (
+              <TaskItem
+                key={task.id}
+                {...task}
+                index={index}
+                setIdTaskEdit={setIdTaskEdit}
+              />
+            );
           })}
         </tbody>
       </table>
     </div>
   ) : (
-    <div>Вас список дел пока пустой</div>
+    <div>
+      <p className="h2">Вас список дел пока пустой</p>
+    </div>
   );
 };

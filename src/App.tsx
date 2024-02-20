@@ -14,7 +14,7 @@ export const App = () => {
         <Container>
           {isLogged ? (
             <>
-              <Form />
+              <Form mode="add" />
               <TaskList />
             </>
           ) : (

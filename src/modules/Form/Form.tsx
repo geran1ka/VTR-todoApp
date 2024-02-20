@@ -2,15 +2,24 @@ import { useState } from "react";
 import s from "./Form.module.scss";
 import { useAppDispatch } from "../../hooks";
 import classNames from "classnames";
-import { addTask, logOut } from "../../store/task/tasksSlice";
+import { ITask, addTask, editTask, logOut } from "../../store/task/tasksSlice";
 
-export const Form = () => {
+interface FormProps {}
+
+export const Form = (props: ITask | undefined) => {
   const dispatch = useAppDispatch();
-  const [task, setTask] = useState("");
-  const [importanceTasks, setImportanceTasks] = useState("table-light");
+
+  const { mode, taskEdit, setIdTaskEdit } = props;
+  const isEdit = mode === "edit";
+
+  const [task, setTask] = useState(isEdit ? taskEdit.task : "");
+  const [importanceTasks, setImportanceTasks] = useState(
+    isEdit ? taskEdit.important : "table-light",
+  );
 
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
+    if (isEdit) return;
     const newTask = {
       id: Math.random().toString(16).substring(2, 9),
       task,
@@ -27,13 +36,20 @@ export const Form = () => {
     setImportanceTasks("table-light");
   };
 
-  const handleChangeTask = (e: React.ChangeEvent<EventTarget>) => {
-    if (e.target instanceof HTMLInputElement) {
-      setTask(e.target.value);
+  const handlerChangeTask = () => {
+    console.log("click");
+    if (taskEdit) {
+      console.log("click2");
+      dispatch(editTask({ ...taskEdit, task, importanceTasks }));
+      setIdTaskEdit(null);
     }
   };
 
-  const handleChangeImportanceTask = (e: React.ChangeEvent<EventTarget>) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTask(e.target.value);
+  };
+
+  const onChangeSelect = (e: React.ChangeEvent<EventTarget>) => {
     console.log(1);
     if (e.target instanceof HTMLSelectElement) {
       console.log(e.target.value);
@@ -49,7 +65,7 @@ export const Form = () => {
         <input
           type="text"
           className={classNames("form-control")}
-          onChange={handleChangeTask}
+          onChange={onChangeInput}
           value={task}
           placeholder="ввести задачу"
         />
@@ -58,7 +74,7 @@ export const Form = () => {
       <select
         className="w-auto me-3 form-select"
         value={importanceTasks}
-        onChange={handleChangeImportanceTask}>
+        onChange={onChangeSelect}>
         <option className="table-light" value="table-light">
           обычная
         </option>
@@ -70,12 +86,24 @@ export const Form = () => {
         </option>
       </select>
 
-      <button
-        className={classNames("btn btn-primary me-3")}
-        type="submit"
-        disabled={task ? false : true}>
-        Сохранить
-      </button>
+      {!isEdit && (
+        <button
+          className={classNames("btn btn-primary me-3")}
+          type="submit"
+          disabled={task ? false : true}>
+          Сохранить
+        </button>
+      )}
+      {isEdit && (
+        <button
+          className={classNames("btn btn-primary me-3")}
+          type="button"
+          disabled={task ? false : true}
+          onClick={handlerChangeTask}>
+          Сохранить
+        </button>
+      )}
+
       <button
         className={classNames("btn btn-warning me-3")}
         type="button"
@@ -84,14 +112,16 @@ export const Form = () => {
         Очистить
       </button>
 
-      <button
-        className={classNames("btn btn-info")}
-        type="button"
-        onClick={() => {
-          dispatch(logOut());
-        }}>
-        Выйти
-      </button>
+      {!isEdit && (
+        <button
+          className={classNames("btn btn-info")}
+          type="button"
+          onClick={() => {
+            dispatch(logOut());
+          }}>
+          Выйти
+        </button>
+      )}
     </form>
   );
 };
