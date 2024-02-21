@@ -2,7 +2,7 @@
 @import "bootstrap/scss/bootstrap";
 
 body {
-  min-width: 320px;
+  min-width: 390px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
   background-color: #111;
@@ -13,145 +13,141 @@ p {
   margin: 0;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
+// .overlay {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   z-index: 100;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   display: none;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 10px;
+// }
 
-.overlay_active {
-  display: flex;
-}
+// .overlay_active {
+//   display: flex;
+// }
 
-.modal_active {
-  display: flex;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: auto;
-}
+// .modal_active {
+//   display: flex;
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   height: auto;
+// }
 
-.modal__title {
-  color: #0d6efd;
-}
+// .modal__title {
+//   color: #0d6efd;
+// }
 
-.modal__content {
-  position: relative;
-  background-image: url("/img/istockphoto-1127117873-612x612.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+// .modal__content {
+//   position: relative;
+//   background-image: url("/img/istockphoto-1127117873-612x612.jpg");
+//   background-position: center;
+//   background-size: cover;
+//   background-repeat: no-repeat;
+// }
 
-.modal__header,
-.modal__form,
-.modal__input {
-  text-align: center;
-}
+// .modal__header,
+// .modal__form,
+// .modal__input {
+//   text-align: center;
+// }
 
-.modal__input::placeholder {
-  color: #0d6efd;
-}
+// .modal__input::placeholder {
+//   color: #0d6efd;
+// }
 
-.form {
-  min-width: 640px;
-}
+// .form {
+//   min-width: 640px;
+// }
 
-.form__select {
-  display: block;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-}
+// .form__select {
+//   display: block;
+//   line-height: 1.5;
+//   color: #212529;
+//   background-color: #fff;
+//   background-clip: padding-box;
+//   border: 1px solid #ced4da;
+//   padding: 0.375rem 0.75rem;
+//   border-radius: 0.25rem;
+// }
 
-.container {
-  max-width: 1024px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-}
+// .container {
+//   max-width: 1024px;
+//   overflow-x: auto;
+//   scroll-behavior: smooth;
+// }
 
-.table {
-  min-width: 768px;
-}
+// .table-light,
+// .table-success {
+//   vertical-align: middle;
+// }
 
-.table-light,
-.table-success {
-  vertical-align: middle;
-}
+// .task,
+// .text-decoration-line-through {
+//   width: 90%;
+// }
 
-.task,
-.text-decoration-line-through {
-  width: 90%;
-}
+// .status,
+// .priority {
+//   white-space: nowrap;
+// }
 
-.status,
-.priority {
-  white-space: nowrap;
-}
+// .form__tbody {
+//   counter-reset: count 0;
+// }
 
-.form__tbody {
-  counter-reset: count 0;
-}
+// .number {
+//   position: relative;
+// }
 
-.number {
-  position: relative;
-}
+// .number::after {
+//   content: counter(count);
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   counter-increment: count;
+// }
 
-.number::after {
-  content: counter(count);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  counter-increment: count;
-}
+// .th__number,
+// .th__task,
+// .th__status,
+// .th__priority {
+//   position: relative;
+// }
 
-.th__number,
-.th__task,
-.th__status,
-.th__priority {
-  position: relative;
-}
+// .th__number::after,
+// .th__task::after,
+// .th__status::after,
+// .th__priority::after {
+//   position: absolute;
+//   top: 50%;
+//   left: 0;
+//   transform: translateY(-50%);
+//   height: auto;
+//   width: 10px;
+// }
 
-.th__number::after,
-.th__task::after,
-.th__status::after,
-.th__priority::after {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  height: auto;
-  width: 10px;
-}
+// .td__group-btn {
+//   display: block;
+//   gap: 3px;
+// }
 
-.td__group-btn {
-  display: block;
-  gap: 3px;
-}
+// .up::after {
+//   content: "\2191";
+// }
 
-.up::after {
-  content: "\2191";
-}
+// .down::after {
+//   content: "\2193";
+// }
 
-.down::after {
-  content: "\2193";
-}
-
-.footer {
-  padding: 30px;
-  color: #fff;
-  text-align: center;
-}
+// .footer {
+//   padding: 30px;
+//   color: #fff;
+//   text-align: center;
+// }

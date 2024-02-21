@@ -5,6 +5,7 @@ import { getLocalStorage } from "../../API/localStorage";
 import { useEffect } from "react";
 import { setTask } from "../../store/task/tasksSlice";
 import { Form } from "../Form/Form";
+import s from "./TaskList.module.scss";
 
 export const TaskList = () => {
   const dispatch = useAppDispatch();
@@ -19,13 +20,17 @@ export const TaskList = () => {
 
   return tasks.length >= 1 ? (
     <div className={classNames("table-wrapper")}>
-      <table className={classNames("table table-hover table-bordered h-100")}>
+      <table
+        className={classNames(
+          s.table,
+          "table table-hover table-bordered h-100",
+        )}>
         <thead>
           <tr>
-            <th>№</th>
-            <th>Задача</th>
-            <th>Статус</th>
-            <th>Действия</th>
+            <th className={s.index}>№</th>
+            <th className={s.task}>Задача</th>
+            <th className={s.status}>Статус</th>
+            <th className={s.action}>Действия</th>
           </tr>
         </thead>
         <tbody>

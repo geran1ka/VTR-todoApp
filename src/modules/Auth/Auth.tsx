@@ -3,6 +3,7 @@ import s from "./Auth.module.scss";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { logIn } from "../../store/task/tasksSlice";
+import { getName } from "../../utils/getName";
 
 export const Auth = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ export const Auth = () => {
 
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    dispatch(logIn(value));
+    dispatch(logIn(getName(value)));
   };
 
   const hadlerChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

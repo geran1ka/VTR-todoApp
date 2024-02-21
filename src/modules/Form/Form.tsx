@@ -1,10 +1,13 @@
 import { useState } from "react";
 import s from "./Form.module.scss";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector, useResize } from "../../hooks";
 import classNames from "classnames";
 import { ITask, addTask, editTask, logOut } from "../../store/task/tasksSlice";
 import { editStop } from "../../store/edit/editSlice";
 import { Button } from "../Button/Button";
+import SaveIcon from "../../assets/save.svg?react";
+import ResetIcon from "../../assets/reset.svg?react";
+import ExitIcon from "../../assets/exit.svg?react";
 
 interface Form {
   mode: string;
@@ -20,8 +23,9 @@ export const Form = (props: Form) => {
   const { mode } = props;
   const isEdit = mode === "edit";
   const taskEdit = useAppSelector((state) => state.editTask.taskEdit);
-
   const [task, setTask] = useState(isEdit ? taskEdit : DEFAULT_TASK);
+
+  const isLaptop = useResize();
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -94,7 +98,7 @@ export const Form = (props: Form) => {
       <div className={s.btnGroup}>
         {!isEdit && (
           <Button className="btn-primary" type="submit" disabled={!task.task}>
-            Сохранить
+            {isLaptop ? <SaveIcon /> : "Сохранить"}
           </Button>
         )}
         {isEdit && (
@@ -103,7 +107,7 @@ export const Form = (props: Form) => {
             type="button"
             disabled={!task.task}
             onClick={handlerChangeTask}>
-            Сохранить
+            {isLaptop ? <SaveIcon /> : "Сохранить"}
           </Button>
         )}
 
@@ -112,7 +116,7 @@ export const Form = (props: Form) => {
           type="button"
           onClick={handlerReset}
           disabled={!task.task}>
-          Очистить
+          {isLaptop ? <ResetIcon /> : "Очистить"}
         </Button>
 
         {!isEdit && (
@@ -122,7 +126,7 @@ export const Form = (props: Form) => {
             onClick={() => {
               dispatch(logOut());
             }}>
-            Выйти
+            {isLaptop ? <ExitIcon /> : "Выйти"}
           </Button>
         )}
       </div>

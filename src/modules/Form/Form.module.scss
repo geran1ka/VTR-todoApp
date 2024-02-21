@@ -1,28 +1,30 @@
 .form {
   display: grid;
-  grid-template-columns: 4fr 1fr 2fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
   gap: 10px;
   justify-items: start;
 
-  @media (max-width: 790px) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+  @media (min-width: 768px) {
+    grid-template-columns: 4fr 1fr 2fr;
+    grid-template-rows: 1fr;
   }
 }
 
 .label {
   width: 100%;
+  grid-column: span 2;
 
-  @media (max-width: 790px) {
-    grid-column: span 2;
+  @media (min-width: 768px) {
+    grid-column: span 1;
   }
 }
 
 .select {
-  justify-self: center;
-  @media (max-width: 790px) {
-    justify-self: start;
+  justify-self: start;
+  @media (min-width: 768px) {
+    justify-self: center;
   }
 }
 
@@ -32,8 +34,8 @@
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
 
-  justify-self: center;
-  @media (max-width: 790px) {
-    justify-self: end;
+  justify-self: end;
+  @media (max-width: 768) {
+    justify-self: center;
   }
 }

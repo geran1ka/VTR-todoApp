@@ -6,7 +6,7 @@ import { Form } from "./modules/Form/Form";
 import { TaskList } from "./modules/TaskList/TaskList";
 
 export const App: React.FC = () => {
-  const { isLogged } = useAppSelector((state) => state.tasks);
+  const { login, isLogged } = useAppSelector((state) => state.tasks);
 
   return (
     <>
@@ -14,6 +14,7 @@ export const App: React.FC = () => {
         <Container>
           {isLogged ? (
             <>
+              <h1>Добрый день, {login}!</h1>
               <Form mode="add" />
               <TaskList />
             </>

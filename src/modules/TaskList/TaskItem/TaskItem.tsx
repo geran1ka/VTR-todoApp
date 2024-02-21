@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useResize } from "../../../hooks";
 import {
   ITask,
   completeTask,
@@ -8,6 +8,10 @@ import {
 } from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 import { editStart } from "../../../store/edit/editSlice";
+import DeleteIcon from "../../../assets/delete.svg?react";
+import EditIcon from "../../../assets/edit.svg?react";
+import CompleteteIcon from "../../../assets/complete.svg?react";
+import s from "./TaskItem.module.scss";
 
 interface TaskItem extends ITask {
   index: number;
@@ -17,8 +21,8 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
   const { id, task, completed, important, index } = props;
 
   const dispatch = useAppDispatch();
-
   const [showModalRemove, setShowModalRemove] = useState(false);
+  const isLaptop = useResize();
 
   const handlerRemove = (): void => {
     dispatch(removeTask(id));
@@ -49,7 +53,7 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
 
   return (
     <>
-      <tr className={classNames(important, "h-100")} id={id}>
+      <tr className={classNames(s.row, important, "h-100")} id={id}>
         <td className="align-middle">{index + 1}</td>
         <td
           className={classNames(
@@ -62,21 +66,27 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
         <td className={classNames("m-auto", "align-middle")}>
           {completed ? "Завершено" : " В\u00A0процессе"}
         </td>
-        <td className={classNames("d-flex h-100 align-items-center")}>
+        <td className={classNames(s.btns, "d-flex h-100 align-items-center")}>
           <button
-            className={classNames("btn btn-danger me-1")}
+            className={classNames("btn btn-danger")}
             onClick={handlerModalOpen}>
-            Удалить
+            {isLaptop ? <DeleteIcon className={s.svg} /> : "Удалить"}
           </button>
           <button
-            className={classNames("btn btn-primary me-1")}
+            className={classNames("btn btn-primary")}
             onClick={handleTaskEdit}>
-            Редактировать
+            {isLaptop ? <EditIcon className={s.svg} /> : "Редактировать"}
           </button>
           <button
             className={classNames("btn btn-success")}
             onClick={handlerComplete}>
-            {completed ? "Отменить" : "Завершить"}
+            {isLaptop ? (
+              <CompleteteIcon className={s.svg} />
+            ) : completed ? (
+              "Отменить"
+            ) : (
+              "Завершить"
+            )}
           </button>
         </td>
         {showModalRemove && (

@@ -1,0 +1,25 @@
+.svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btns {
+  flex-direction: column;
+  gap: 3px;
+
+  @media (min-width: 540px) {
+    flex-direction: row;
+  }
+}
+
+.row {
+  @media (mix-width: 540px) {
+    font-size: 16px;
+    padding: 6px;
+  }
+
+  @media (mix-width: 768px) {
+    font-size: 20px;
+    padding: 8px;
+  }
+}
