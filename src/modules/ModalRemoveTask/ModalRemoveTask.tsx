@@ -2,9 +2,21 @@ import { useEffect, useRef } from "react";
 import s from "./ModalRemoveTask.module.scss";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
+import { Button } from "../Button/Button";
 
-export const ModalRemoveTask = ({ task, handlerModalClose, handlerRemove }) => {
+interface ModalRemoveTask {
+  task: string;
+  handlerModalClose: () => void;
+  handlerRemove: () => void;
+}
+
+export const ModalRemoveTask: React.FC<ModalRemoveTask> = ({
+  task,
+  handlerModalClose,
+  handlerRemove,
+}) => {
   const overlayRef = useRef(null);
+  //@ts-ignore
   const hadleClick = (e) => {
     const target = e.target;
     if (
@@ -28,18 +40,14 @@ export const ModalRemoveTask = ({ task, handlerModalClose, handlerRemove }) => {
       <p className={s.content}>Вы действительно хотите удалить задачу:</p>
       <p className={s.content}>{task}?</p>
       <div className={classNames("d-flex gap-3")}>
-        <button
-          className={classNames("btn btn-danger")}
-          onClick={handlerRemove}>
+        <Button className="btn-danger" onClick={handlerRemove}>
           Удалить
-        </button>
-        <button
-          className={classNames("btn btn-primary")}
-          onClick={handlerModalClose}>
+        </Button>
+        <Button className="btn-primary" onClick={handlerModalClose}>
           Отменить
-        </button>
+        </Button>
       </div>
     </div>,
-    document.getElementById("popup-root"),
+    document.getElementById("popup-root") as HTMLElement,
   );
 };

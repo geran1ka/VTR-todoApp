@@ -5,7 +5,7 @@ import { Container } from "./modules/Container/Container";
 import { Form } from "./modules/Form/Form";
 import { TaskList } from "./modules/TaskList/TaskList";
 
-export const App = () => {
+export const App: React.FC = () => {
   const { isLogged } = useAppSelector((state) => state.tasks);
 
   return (

@@ -1,3 +1,39 @@
 .form {
-  max-width: 1080px;
+  display: grid;
+  grid-template-columns: 4fr 1fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 10px;
+  justify-items: start;
+
+  @media (max-width: 790px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+.label {
+  width: 100%;
+
+  @media (max-width: 790px) {
+    grid-column: span 2;
+  }
+}
+
+.select {
+  justify-self: center;
+  @media (max-width: 790px) {
+    justify-self: start;
+  }
+}
+
+.btnGroup {
+  display: grid;
+  justify-content: space-between;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+
+  justify-self: center;
+  @media (max-width: 790px) {
+    justify-self: end;
+  }
 }

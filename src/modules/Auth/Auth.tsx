@@ -7,15 +7,14 @@ import { logIn } from "../../store/task/tasksSlice";
 export const Auth = () => {
   const dispatch = useAppDispatch();
   const { isLogged } = useAppSelector((state) => state.tasks);
-
   const [value, setValue] = useState("");
 
-  const handlerSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     dispatch(logIn(value));
   };
 
-  const hadlerChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const hadlerChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 

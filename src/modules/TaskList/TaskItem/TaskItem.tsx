@@ -1,11 +1,19 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { useAppDispatch } from "../../../hooks";
-import { completeTask, removeTask } from "../../../store/task/tasksSlice";
+import {
+  ITask,
+  completeTask,
+  removeTask,
+} from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 import { editStart } from "../../../store/edit/editSlice";
 
-export const TaskItem = (props) => {
+interface TaskItem extends ITask {
+  index: number;
+}
+
+export const TaskItem: React.FC<TaskItem> = (props) => {
   const { id, task, completed, important, index } = props;
 
   const dispatch = useAppDispatch();
