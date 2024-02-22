@@ -95,10 +95,10 @@ export const Form = (props: Form) => {
           срочная
         </option>
       </select>
-      <div className={s.btnGroup}>
+      <div className={classNames(s.btnGroup, isEdit && s.btnGroupEddit)}>
         {!isEdit && (
           <Button className="btn-primary" type="submit" disabled={!task.task}>
-            {isLaptop ? <SaveIcon /> : "Сохранить"}
+            {isLaptop ? <SaveIcon className={s.svg} /> : "Сохранить"}
           </Button>
         )}
         {isEdit && (
@@ -107,7 +107,7 @@ export const Form = (props: Form) => {
             type="button"
             disabled={!task.task}
             onClick={handlerChangeTask}>
-            {isLaptop ? <SaveIcon /> : "Сохранить"}
+            {isLaptop ? <SaveIcon className={s.svg} /> : "Сохранить"}
           </Button>
         )}
 
@@ -116,7 +116,7 @@ export const Form = (props: Form) => {
           type="button"
           onClick={handlerReset}
           disabled={!task.task}>
-          {isLaptop ? <ResetIcon /> : "Очистить"}
+          {isLaptop ? <ResetIcon className={s.svg} /> : "Очистить"}
         </Button>
 
         {!isEdit && (
@@ -126,7 +126,7 @@ export const Form = (props: Form) => {
             onClick={() => {
               dispatch(logOut());
             }}>
-            {isLaptop ? <ExitIcon /> : "Выйти"}
+            {isLaptop ? <ExitIcon className={s.svg} /> : "Выйти"}
           </Button>
         )}
       </div>

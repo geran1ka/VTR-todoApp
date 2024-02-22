@@ -1,13 +1,13 @@
 .form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 165px;
   grid-template-rows: 1fr 1fr;
 
   gap: 10px;
   justify-items: start;
 
   @media (min-width: 768px) {
-    grid-template-columns: 4fr 1fr 2fr;
+    grid-template-columns: 4fr 115px 358px;
     grid-template-rows: 1fr;
   }
 }
@@ -33,9 +33,22 @@
   justify-content: space-between;
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  justify-content: space-between;
 
   justify-self: end;
   @media (max-width: 768) {
     justify-self: center;
   }
+}
+
+.btnGroupEddit {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: min-content;
+  justify-content: space-between;
+}
+
+.svg {
+  width: 20px;
+  height: 20px;
 }
