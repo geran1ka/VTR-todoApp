@@ -16,8 +16,7 @@ export const ModalRemoveTask: React.FC<ModalRemoveTask> = ({
   handlerRemove,
 }) => {
   const overlayRef = useRef(null);
-  //@ts-ignore
-  const hadleClick = (e) => {
+  const hadleClick = (e: any): void => {
     const target = e.target;
     if (
       (target !== overlayRef.current && !target.closest(".btn")) ||

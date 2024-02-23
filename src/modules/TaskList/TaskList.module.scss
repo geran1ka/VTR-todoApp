@@ -1,7 +1,39 @@
 .table {
   min-width: 360px;
+  font-size: 12px;
+  @media (min-width: 540px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.index {
+  width: 50px;
 }
 
 .task {
-  width: 100%;
+  min-width: 170px;
+}
+
+.status {
+  width: 85px;
+
+  @media (min-width: 540px) {
+    width: 120px;
+  }
+}
+
+.action {
+  width: 80px;
+
+  @media (min-width: 540px) {
+    width: 166px;
+  }
+
+  @media (min-width: 768px) {
+    width: 360px;
+  }
 }

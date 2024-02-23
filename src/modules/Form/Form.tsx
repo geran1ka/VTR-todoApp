@@ -65,12 +65,16 @@ export const Form = (props: Form) => {
 
   return (
     <form
-      className={classNames(s.form, "align-items-center", !isEdit && "mb-3")}
+      className={classNames(
+        isEdit ? s.formEdit : s.form,
+        "align-items-center",
+        !isEdit && "mb-3",
+      )}
       onSubmit={handlerSubmit}>
       <label className={classNames(s.label, "form-group mb-0")}>
         <input
           type="text"
-          className={classNames("form-control")}
+          className={classNames(s.input, "form-control")}
           name="task"
           id="task"
           onChange={onChange}
@@ -103,7 +107,7 @@ export const Form = (props: Form) => {
         )}
         {isEdit && (
           <Button
-            className="btn-primary"
+            className={classNames(s.btnSave, "btn-primary")}
             type="button"
             disabled={!task.task}
             onClick={handlerChangeTask}>
@@ -112,7 +116,7 @@ export const Form = (props: Form) => {
         )}
 
         <Button
-          className="btn-warning"
+          className={classNames(s.btnReset, "btn-warning")}
           type="button"
           onClick={handlerReset}
           disabled={!task.task}>

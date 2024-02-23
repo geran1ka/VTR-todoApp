@@ -1,13 +1,12 @@
 .form {
   display: grid;
-  grid-template-columns: 1fr 165px;
+  grid-template-columns: 1fr 162px;
   grid-template-rows: 1fr 1fr;
-
   gap: 10px;
   justify-items: start;
 
   @media (min-width: 768px) {
-    grid-template-columns: 4fr 115px 358px;
+    grid-template-columns: 1fr 120px 358px;
     grid-template-rows: 1fr;
   }
 }
@@ -15,14 +14,65 @@
 .label {
   width: 100%;
   grid-column: span 2;
+  font-size: 12px;
 
   @media (min-width: 768px) {
     grid-column: span 1;
   }
 }
 
+.formEdit {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 162px;
+  grid-template-rows: 1fr 1fr;
+  justify-items: start;
+
+  @media (min-width: 540px) {
+    grid-template-columns: 1fr 120px 140px;
+    grid-template-rows: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 120px 340px;
+    grid-template-rows: 1fr;
+  }
+
+  & label {
+    @media (min-width: 540px) {
+      grid-column: span 1;
+    }
+  }
+
+  & .btnSave {
+    @media (min-width: 768px) {
+      width: 136px;
+    }
+  }
+
+  & .btnReset {
+    @media (min-width: 768px) {
+      width: 108px;
+    }
+  }
+}
+
+.input,
+.select {
+  font-size: 12px;
+
+  @media (min-width: 540px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
 .select {
   justify-self: start;
+
   @media (min-width: 768px) {
     justify-self: center;
   }
@@ -31,7 +81,7 @@
 .btnGroup {
   display: grid;
   justify-content: space-between;
-  gap: 10px;
+  gap: 5px;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   justify-content: space-between;

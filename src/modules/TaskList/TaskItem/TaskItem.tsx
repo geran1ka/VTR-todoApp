@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAppDispatch, useResize } from "../../../hooks";
 import {
   ITask,
@@ -23,6 +23,7 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
   const dispatch = useAppDispatch();
   const [showModalRemove, setShowModalRemove] = useState(false);
   const isLaptop = useResize();
+  const editRef = useRef(null);
 
   const handlerRemove = (): void => {
     dispatch(removeTask(id));
@@ -41,6 +42,11 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
   };
 
   const handleTaskEdit = () => {
+    if (editRef.current !== null) {
+      console.log("editRef: ", editRef.current);
+      editRef.current.focus();
+    }
+
     dispatch(
       editStart({
         id,
@@ -60,7 +66,8 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
             "task",
             "align-middle",
             completed && "text-decoration-line-through",
-          )}>
+          )}
+          ref={editRef}>
           {task}
         </td>
         <td className={classNames("m-auto", "align-middle")}>
@@ -78,7 +85,7 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
             {isLaptop ? <EditIcon className={s.svg} /> : "Редактировать"}
           </button>
           <button
-            className={classNames("btn btn-success")}
+            className={classNames(s.btnComplete, "btn btn-success")}
             onClick={handlerComplete}>
             {isLaptop ? (
               <CompleteteIcon className={s.svg} />
