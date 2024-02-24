@@ -24,9 +24,7 @@ export const Form = (props: Form) => {
   const { mode } = props;
   const isEdit = mode === "edit";
   const taskEdit = useAppSelector((state) => state.editTask.taskEdit);
-  console.log("taskEdit: ", taskEdit);
   const [task, setTask] = useState(isEdit ? taskEdit : DEFAULT_TASK);
-  console.log("task: ", task);
 
   const isLaptop = useResize();
 

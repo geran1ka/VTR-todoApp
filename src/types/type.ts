@@ -6,6 +6,8 @@ export interface ITask {
 }
 
 export interface ITasks {
+  sortValue?: "";
+  isSortAscending?: boolean;
   login: string;
   isLogged: boolean;
   tasks: ITask[] | [];

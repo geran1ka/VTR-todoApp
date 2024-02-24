@@ -3,20 +3,42 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { TaskItem } from "./TaskItem/TaskItem";
 import { getLocalStorage } from "../../API/localStorage";
 import { useEffect } from "react";
-import { setTask } from "../../store/task/tasksSlice";
+import { setTask, sortTask } from "../../store/task/tasksSlice";
 import { Form } from "../Form/Form";
 import s from "./TaskList.module.scss";
+import ArrowUp from "../../assets/arrowUp.svg?react";
+import ArrowDown from "../../assets/arrowDown.svg?react";
 
 export const TaskList = () => {
   const dispatch = useAppDispatch();
 
-  const login = useAppSelector((state) => state.tasks.login);
+  const { login, sortValue, isSortAscending } = useAppSelector(
+    (state) => state.tasks,
+  );
+  //@ts-ignorets
+  const isSortTask = sortValue === "taskName" ? true : false;
+  //@ts-ignorets
+  const isSortStatus = sortValue === "importantName" ? true : false;
+
   const tasks = getLocalStorage(login);
   const { id } = useAppSelector((state) => state.editTask);
 
   useEffect(() => {
     dispatch(setTask(tasks));
   }, [login]);
+
+  const handlerSort = (e) => {
+    if (e.target.name === sortValue) {
+      dispatch(sortTask({ sort: e.target.name, count: !isSortAscending }));
+    } else {
+      dispatch(
+        sortTask({
+          sort: e.target.name,
+          count: true,
+        }),
+      );
+    }
+  };
 
   return tasks.length >= 1 ? (
     <div className={classNames("table-wrapper")}>
@@ -28,8 +50,26 @@ export const TaskList = () => {
         <thead>
           <tr>
             <th className={s.index}>№</th>
-            <th className={s.task}>Задача</th>
-            <th className={s.status}>Статус</th>
+            <th className={s.task}>
+              <button
+                type="button"
+                className={s.btn}
+                name="taskName"
+                onClick={handlerSort}>
+                Задача
+              </button>
+              {isSortTask && (isSortAscending ? <ArrowUp /> : <ArrowDown />)}
+            </th>
+            <th className={s.status}>
+              <button
+                type="button"
+                className={s.btn}
+                name="importantName"
+                onClick={handlerSort}>
+                Статус
+              </button>
+              {isSortStatus && (isSortAscending ? <ArrowUp /> : <ArrowDown />)}
+            </th>
             <th className={s.action}>Действия</th>
           </tr>
         </thead>
