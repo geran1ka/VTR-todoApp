@@ -1,18 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setLocalStorage } from "../../API/localStorage";
-
-export interface ITask {
-  id: string;
-  task: string;
-  completed: boolean;
-  important: string;
-}
-
-export interface ITasks {
-  login: string;
-  isLogged: boolean;
-  tasks: ITask[] | [];
-}
+import { ITasks } from "../../types/type";
 
 const initialState: ITasks = {
   login: "",

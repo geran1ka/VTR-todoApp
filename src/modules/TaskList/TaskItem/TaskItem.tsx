@@ -1,17 +1,15 @@
 import classNames from "classnames";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useResize } from "../../../hooks";
-import {
-  ITask,
-  completeTask,
-  removeTask,
-} from "../../../store/task/tasksSlice";
+import { completeTask, removeTask } from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 import { editStart } from "../../../store/edit/editSlice";
 import DeleteIcon from "../../../assets/delete.svg?react";
 import EditIcon from "../../../assets/edit.svg?react";
 import CompleteteIcon from "../../../assets/complete.svg?react";
 import s from "./TaskItem.module.scss";
+import { Button } from "../../Button/Button";
+import { ITask } from "../../../types/type";
 
 interface TaskItem extends ITask {
   index: number;
@@ -23,7 +21,6 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
   const dispatch = useAppDispatch();
   const [showModalRemove, setShowModalRemove] = useState(false);
   const isLaptop = useResize();
-  const editRef = useRef(null);
 
   const handlerRemove = (): void => {
     dispatch(removeTask(id));
@@ -42,11 +39,6 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
   };
 
   const handleTaskEdit = () => {
-    if (editRef.current !== null) {
-      console.log("editRef: ", editRef.current);
-      editRef.current.focus();
-    }
-
     dispatch(
       editStart({
         id,
@@ -66,26 +58,25 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
             "task",
             "align-middle",
             completed && "text-decoration-line-through",
-          )}
-          ref={editRef}>
+          )}>
           {task}
         </td>
         <td className={classNames("m-auto", "align-middle")}>
           {completed ? "Завершено" : " В\u00A0процессе"}
         </td>
         <td className={classNames(s.btns, "d-flex h-100 align-items-center")}>
-          <button
-            className={classNames("btn btn-danger")}
+          <Button
+            className={classNames("btn-danger")}
             onClick={handlerModalOpen}>
             {isLaptop ? <DeleteIcon className={s.svg} /> : "Удалить"}
-          </button>
-          <button
-            className={classNames("btn btn-primary")}
+          </Button>
+          <Button
+            className={classNames("btn-primary")}
             onClick={handleTaskEdit}>
             {isLaptop ? <EditIcon className={s.svg} /> : "Редактировать"}
-          </button>
-          <button
-            className={classNames(s.btnComplete, "btn btn-success")}
+          </Button>
+          <Button
+            className={classNames(s.btnComplete, "btn-success")}
             onClick={handlerComplete}>
             {isLaptop ? (
               <CompleteteIcon className={s.svg} />
@@ -94,7 +85,7 @@ export const TaskItem: React.FC<TaskItem> = (props) => {
             ) : (
               "Завершить"
             )}
-          </button>
+          </Button>
         </td>
         {showModalRemove && (
           <ModalRemoveTask

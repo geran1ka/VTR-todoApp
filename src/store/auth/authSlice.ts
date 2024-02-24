@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ITasks } from "../../types/type";
 
-export interface ITasks {
-  login: string;
-  isLogged: boolean;
-}
-
-const initialState: ITasks = {
+const initialState: Omit<ITasks, "tasks"> = {
   login: "",
   isLogged: false,
 };

@@ -13,19 +13,19 @@
 }
 
 .row {
-  @media (mix-width: 540px) {
-    font-size: 16px;
+  @media (min-width: 540px) {
+    font-size: 14px;
     padding: 6px;
   }
 
-  @media (mix-width: 768px) {
-    font-size: 20px;
+  @media (min-width: 768px) {
+    font-size: 16px;
     padding: 8px;
   }
 }
 
 .btnComplete {
-  @media (mix-width: 768px) {
+  @media (min-width: 768px) {
     width: 100%;
   }
 }

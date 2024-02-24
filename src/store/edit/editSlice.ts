@@ -10,6 +10,7 @@ const editSlice = createSlice({
   initialState,
   reducers: {
     editStart: (state, action) => {
+      console.log("action: ", action);
       state.id = action.payload.id;
       state.taskEdit = action.payload;
     },

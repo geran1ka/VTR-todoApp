@@ -2,12 +2,13 @@ import { useState } from "react";
 import s from "./Form.module.scss";
 import { useAppDispatch, useAppSelector, useResize } from "../../hooks";
 import classNames from "classnames";
-import { ITask, addTask, editTask, logOut } from "../../store/task/tasksSlice";
+import { addTask, editTask, logOut } from "../../store/task/tasksSlice";
 import { editStop } from "../../store/edit/editSlice";
 import { Button } from "../Button/Button";
 import SaveIcon from "../../assets/save.svg?react";
 import ResetIcon from "../../assets/reset.svg?react";
 import ExitIcon from "../../assets/exit.svg?react";
+import { ITask } from "../../types/type";
 
 interface Form {
   mode: string;
@@ -23,7 +24,9 @@ export const Form = (props: Form) => {
   const { mode } = props;
   const isEdit = mode === "edit";
   const taskEdit = useAppSelector((state) => state.editTask.taskEdit);
+  console.log("taskEdit: ", taskEdit);
   const [task, setTask] = useState(isEdit ? taskEdit : DEFAULT_TASK);
+  console.log("task: ", task);
 
   const isLaptop = useResize();
 
@@ -77,6 +80,7 @@ export const Form = (props: Form) => {
           className={classNames(s.input, "form-control")}
           name="task"
           id="task"
+          autoFocus={true}
           onChange={onChange}
           value={task.task}
           placeholder="ввести задачу"
