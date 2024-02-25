@@ -45,7 +45,7 @@ const tasksSlice = createSlice({
     editTask: (state, action) => {
       state.tasks = state.tasks.map((task) => {
         if (task?.id === action.payload.id) {
-          return action.payload;
+          return { ...task, ...action.payload };
         }
         return task;
       });

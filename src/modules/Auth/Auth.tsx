@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import s from "./Auth.module.scss";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { logIn } from "../../store/task/tasksSlice";
 import { getName } from "../../utils/getName";
 

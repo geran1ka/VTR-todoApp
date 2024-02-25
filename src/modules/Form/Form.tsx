@@ -1,6 +1,6 @@
 import { useState } from "react";
 import s from "./Form.module.scss";
-import { useAppDispatch, useAppSelector, useResize } from "../../hooks";
+import { useAppDispatch, useAppSelector, useResize } from "../../hooks/hooks";
 import classNames from "classnames";
 import { addTask, editTask, logOut } from "../../store/task/tasksSlice";
 import { editStop } from "../../store/edit/editSlice";
@@ -13,9 +13,11 @@ import { ITask } from "../../types/type";
 interface Form {
   mode: string;
 }
-const DEFAULT_TASK: Omit<ITask, "id" | "completed"> = {
+const DEFAULT_TASK: ITask = {
+  id: "",
   task: "",
   important: "table-light",
+  completed: false,
 };
 
 export const Form = (props: Form) => {
@@ -23,8 +25,15 @@ export const Form = (props: Form) => {
 
   const { mode } = props;
   const isEdit = mode === "edit";
-  const taskEdit = useAppSelector((state) => state.editTask.taskEdit);
-  const [task, setTask] = useState(isEdit ? taskEdit : DEFAULT_TASK);
+  const {
+    id,
+    task: taskEdit,
+    important,
+    completed,
+  } = useAppSelector((state) => state.editTask);
+  const [task, setTask] = useState(
+    isEdit ? { id, task: taskEdit, important, completed } : DEFAULT_TASK,
+  );
 
   const isLaptop = useResize();
 
@@ -42,7 +51,7 @@ export const Form = (props: Form) => {
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     if (isEdit) return;
-    if (typeof task !== "undefined" && task !== null) {
+    if (!!task) {
       if ("task" in task && "important" in task) {
         dispatch(
           addTask({
@@ -58,8 +67,8 @@ export const Form = (props: Form) => {
   };
 
   const handlerChangeTask = () => {
-    if (taskEdit) {
-      dispatch(editTask({ ...taskEdit, ...task }));
+    if (!!taskEdit) {
+      dispatch(editTask(task));
       dispatch(editStop());
     }
   };

@@ -39,7 +39,7 @@ export const ModalRemoveTask: React.FC<ModalRemoveTask> = ({
       <p className={s.content}>Вы действительно хотите удалить задачу:</p>
       <p className={s.content}>{task}?</p>
       <div className={classNames("d-flex gap-3")}>
-        <Button className="btn-danger" onClick={handlerRemove}>
+        <Button className="btn-danger" onClick={handlerRemove} autoFocus>
           Удалить
         </Button>
         <Button className="btn-primary" onClick={handlerModalClose}>

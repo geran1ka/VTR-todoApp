@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ITask } from "../../types/type";
 
-const initialState = {
+const initialState: ITask = {
   id: "",
-  taskEdit: {},
+  task: "",
+  completed: false,
+  important: "",
 };
 
 const editSlice = createSlice({
@@ -10,13 +13,16 @@ const editSlice = createSlice({
   initialState,
   reducers: {
     editStart: (state, action) => {
-      console.log("action: ", action);
       state.id = action.payload.id;
-      state.taskEdit = action.payload;
+      state.task = action.payload.task;
+      state.completed = action.payload.completed;
+      state.important = action.payload.important;
     },
     editStop: (state) => {
       state.id = "";
-      state.taskEdit = {};
+      state.task = "";
+      state.completed = false;
+      state.important = "";
     },
   },
 });

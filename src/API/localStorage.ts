@@ -1,4 +1,4 @@
-import { ITask } from "../store/task/tasksSlice";
+import { ITask } from "../types/type";
 
 export const getLocalStorage = (key: string): ITask[] | [] =>
   JSON.parse(localStorage.getItem(key) || "[]");

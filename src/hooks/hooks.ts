@@ -1,8 +1,8 @@
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import type { AppDispatch, RootState } from "./store/store";
+import type { AppDispatch, RootState } from "../store/store";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { debounceRaf } from "./utils/debounce";
+import { debounceRaf } from "../utils/debounce";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 

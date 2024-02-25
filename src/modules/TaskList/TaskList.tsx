@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { TaskItem } from "./TaskItem/TaskItem";
 import { getLocalStorage } from "../../API/localStorage";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import { Form } from "../Form/Form";
 import s from "./TaskList.module.scss";
 import ArrowUp from "../../assets/arrowUp.svg?react";
 import ArrowDown from "../../assets/arrowDown.svg?react";
+import { getIsSortValue } from "../../utils/getIsSortValue";
 
 export const TaskList = () => {
   const dispatch = useAppDispatch();
@@ -15,10 +16,8 @@ export const TaskList = () => {
   const { login, sortValue, isSortAscending } = useAppSelector(
     (state) => state.tasks,
   );
-  //@ts-ignorets
-  const isSortTask = sortValue === "taskName" ? true : false;
-  //@ts-ignorets
-  const isSortStatus = sortValue === "importantName" ? true : false;
+  const isSortTask = getIsSortValue(sortValue, "taskName");
+  const isSortStatus = getIsSortValue(sortValue, "importantName");
 
   const tasks = getLocalStorage(login);
   const { id } = useAppSelector((state) => state.editTask);
@@ -27,13 +26,15 @@ export const TaskList = () => {
     dispatch(setTask(tasks));
   }, [login]);
 
-  const handlerSort = (e) => {
-    if (e.target.name === sortValue) {
-      dispatch(sortTask({ sort: e.target.name, count: !isSortAscending }));
+  const handlerSort = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (e.currentTarget.name === sortValue) {
+      dispatch(
+        sortTask({ sort: e.currentTarget.name, count: !isSortAscending }),
+      );
     } else {
       dispatch(
         sortTask({
-          sort: e.target.name,
+          sort: e.currentTarget.name,
           count: true,
         }),
       );

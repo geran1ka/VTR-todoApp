@@ -1,5 +1,5 @@
 import s from "./App.module.scss";
-import { useAppSelector } from "./hooks";
+import { useAppSelector } from "./hooks/hooks";
 import { Auth } from "./modules/Auth/Auth";
 import { Container } from "./modules/Container/Container";
 import { Form } from "./modules/Form/Form";

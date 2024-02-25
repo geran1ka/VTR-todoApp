@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useAppDispatch, useResize } from "../../../hooks";
+import { useAppDispatch, useResize } from "../../../hooks/hooks";
 import { completeTask, removeTask } from "../../../store/task/tasksSlice";
 import { ModalRemoveTask } from "../../ModalRemoveTask/ModalRemoveTask";
 import { editStart } from "../../../store/edit/editSlice";
